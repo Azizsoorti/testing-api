@@ -36,13 +36,8 @@ const userSchema = new mongoose.Schema({
 
 const userModel= mongoose.model('datastudent', userSchema)
 
-app.get("/", (req,res)=>{
-    res.send("hello world i am a devolper ")
-})
 
-app.post("/",(req,res)=>{
-    res.json(req.body)
-})
+
 
 // Db creation 
 app.post('/save_user', async (req, res) => {
@@ -74,6 +69,38 @@ try{
     res.status(500).json({msg: "Error occured", logs:error.message})
 }
 
+})
+
+// Db Updating
+
+app.patch('/update/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updatedData = req.body;
+        const options = { new: true };
+
+        const result = await userModel.findByIdAndUpdate(
+            id, updatedData, options
+        )
+
+        res.send(result)
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
+
+//Db Deleting
+app.delete('/delete/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await userModel.findByIdAndDelete(id)
+        res.send(`Document with ${data.name} has been deleted..`)
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
 })
 
 app.listen(port, () => {
