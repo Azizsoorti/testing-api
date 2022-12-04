@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const mongoString = process.env.DATABASE_URL;
 const port = process.env.PORT || 3000;
-
+const cors = require('cors')
 
 
 mongoose.connect(mongoString);
@@ -18,6 +18,7 @@ database.once('connected', () => {
 })
 
 const app = express();
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
