@@ -40,7 +40,7 @@ const userModel= mongoose.model('datastudent', userSchema)
 
 
 // Db creation 
-app.post('/save_user', async (req, res) => {
+app.post('/', async (req, res) => {
     const user = new userModel({
         name: req.body.name,
         age: req.body.age
@@ -58,7 +58,7 @@ app.post('/save_user', async (req, res) => {
 
 
 // Db Reading
-app.get("/all_user", async (req,res)=>{
+app.get("/", async (req,res)=>{
 
 try{
 
@@ -73,7 +73,7 @@ try{
 
 // Db Updating
 
-app.patch('/update/:id', async (req, res) => {
+app.patch('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -92,7 +92,7 @@ app.patch('/update/:id', async (req, res) => {
 
 
 //Db Deleting
-app.delete('/delete/:id', async (req, res) => {
+app.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const data = await userModel.findByIdAndDelete(id)
