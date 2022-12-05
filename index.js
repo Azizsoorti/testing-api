@@ -25,15 +25,26 @@ app.use(bodyParser.json())
 
 
 const userSchema = new mongoose.Schema({
-    name: {
+    
+
+    "email": {
         required: true,
         type: String,
         unique: true
     },
-    age: {
+    "first_name": {
         required: true,
-        type: Number
+        type: String
+    },
+    "last_name": {
+        required: true,
+        type: String
+    },
+    "avatar": {
+        required: true,
+        type: String
     }
+
 })
 
 const userModel= mongoose.model('datastudent', userSchema)
@@ -44,8 +55,10 @@ const userModel= mongoose.model('datastudent', userSchema)
 // Db creation 
 app.post('/', async (req, res) => {
     const user = new userModel({
-        name: req.body.name,
-        age: req.body.age
+        email: req.body.email,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        avatar: req.body.avatar
     })
 
     try {
